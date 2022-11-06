@@ -1,3 +1,4 @@
+#eu alterei
 class House():
     def __init__(self, position) -> None:
         self.data = {"color": None, "nationality": None, "drink": None, "smoke": None, "pet": None }
