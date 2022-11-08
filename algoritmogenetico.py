@@ -4,10 +4,12 @@ import random
 
 class House():
     def __init__(self, position) -> None:
+        #alterar essa para uma matriz onde as casas sao as colunas(j) e os dados da casa sao as linhas(i) assim da para usar o i * m + j
         self.data = {"color": None, "nationality": None, "drink": None, "smoke": None, "pet": None }
         self.data["position"] = str(position) if str(position) is not None else None
 
     def Discribe(self):
+        #impressao das casas, vai alterar tbm pq nao sei se faz sentido isso aqui
         pos = self.data["position"]
         col = self.data["color"]
         prs = self.data["person"]
