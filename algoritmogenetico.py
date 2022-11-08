@@ -1,4 +1,7 @@
 #eu alterei
+import random
+
+
 class House():
     def __init__(self, position) -> None:
         self.data = {"color": None, "nationality": None, "drink": None, "smoke": None, "pet": None }
@@ -51,7 +54,25 @@ def CrossOver(population, currGen):
 def Mutation(population, currGen):
     '''
     se ocorrer alterar alguns valores de posicao
-    '''
+    1 forma da mutacao permutar um parametro
+    selacaoDaCasa = Rng()
+    selacaoDoTipo = Rng()
+    posicaoDaTroca = selacaoDoTipo * m + selacaoDeCasa
+    trocaDeDado = Rng()
+    temp = House.data[posicaoDaTroca]
+    for i in range(4):        
+        if House.data[selacaoDoTipo * m + i] == trocaDado :
+            House.data[posicaoDaTroca] = House.data[selacaoDoTipo * m + i]
+            House.data[selacaoDoTipo * m + i] = temp
+            break
+
+    2 forma troca todos os parametro da de um tipo
+    selacaoDoTipo = Rng()
+    []valores = {0,1,2,3}
+    valores.embaralhar
+    for i in range(4):
+         House.data[selacaoDoTipo * m + i] = valores[i]
+    '''     
     pass     
 def Suvivors(population, currGen):
     '''
@@ -73,6 +94,8 @@ def main():
         Evaluation(population, currGen)
         Suvivors(population, currGen)
     
+def Rng():
+    return random(0,4)
 
 
 if __name__ == '__main__':
