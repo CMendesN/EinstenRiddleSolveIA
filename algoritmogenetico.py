@@ -24,52 +24,57 @@ class House():
             return False
         else:
             return True
-
+const_list = [0,1,2,3,4]
 
 def Init_population(population, genAtual):
-    '''
+    
     for i in range(population):
-        for j in range(pos):        
-            gerar col
-            gerar prs
-            gerar pet
-            gerar drk
-            gerar smk
-
+        for linha in range(4):
+            valores = random.sample(const_list, len(const_list))
+            for coluna in range(4):        
+                matriz[linha * 5 + coluna] = valores[coluna]
+                '''
+                gerar col
+                gerar prs
+                gerar pet
+                gerar drk
+                gerar smk
+                '''
+    '''
     '''
     pass
-    def Col_Color():
-        return 0 * 5
-    def Col_Nacionality():
-        return 1 * 5
-    def Col_Drink():
-        return 2 * 5
-    def Col_Smoke():
-        return 3 * 5
-    def Col_Pet():
-        return 4 * 5
-    def getHouseByColor (color):
+def Col_Color():
+    return 0 * 5
+def Col_Nacionality():
+    return 1 * 5
+def Col_Drink():
+    return 2 * 5
+def Col_Smoke():
+    return 3 * 5
+def Col_Pet():
+    return 4 * 5
+def getHouseByColor (color):
         for i in range(4):
             if(matriz[0* 5 + i] == color):
                 return i
-    def getHouseByNacionality (nacionality):
+def getHouseByNacionality (nacionality):
         for i in range(4):
             if(matriz[1* 5 + i] == nacionality):
                 return i
 
-    def getHouseByDrink (drink):
+def getHouseByDrink (drink):
         for i in range(4):
             if(matriz[2* 5 + i] == drink):
                 return i
-    def getHouseBySmoke (smoke):
+def getHouseBySmoke (smoke):
         for i in range(4):
             if(matriz[3* 5 + i] == smoke):
                 return i
-    def getHouseByPet (pet):
+def getHouseByPet (pet):
         for i in range(4):
             if(matriz[4* 5 + i] == pet):
                 return i
-    def Evaluation(population, genAtual):
+def Evaluation(population, genAtual):
         
         # O Norueguês vive na primeira casa.
         if(matriz[Col_Nacionality() + 0]== 3):
@@ -120,17 +125,17 @@ def Init_population(population, genAtual):
         avaliar de acordo as perguntas
         '''
         pass
-    def SelectParent(population, currGen):
+def SelectParent(population, currGen):
         '''
         salvar os iram fazer parte da proxima geracao
         '''
         pass
-    def CrossOver(population, currGen):
+def CrossOver(population, currGen):
         '''
         fazer a trocar uniform
         '''
         pass
-    def Mutation(population, currGen):
+def Mutation(population, currGen):
         '''
         se ocorrer alterar alguns valores de posicao
         1 forma da mutacao permutar um parametro
@@ -153,12 +158,12 @@ def Init_population(population, genAtual):
             House.data[selacaoDoTipo * m + i] = valores[i]
         '''     
         pass     
-    def Suvivors(population, currGen):
+def Suvivors(population, currGen):
         '''
         pegar as melhores avaliacoes
         '''
         pass
-    def Rng():
+def Rng():
         return random(0,4)
 
 def main():
