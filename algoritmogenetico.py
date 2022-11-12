@@ -132,7 +132,9 @@ def SelectParent(population, currGen):
         pass
 def CrossOver(population, currGen):
         '''
-        fazer a trocar uniform
+        fazer a trocar pelas linhas. 
+        exemplo pegar a cor e a nacionalide de um e botar com a bebido o cigarro e o animal de outro.
+        assim evitando bugar a matriz com valores repetidos e excluindo outros.
         '''
         pass
 def Mutation(population, currGen):
