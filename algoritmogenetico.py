@@ -2,13 +2,18 @@
 import random
 
 
-class House():
-    def __init__(self, position) -> None:
+class House:
+    def __init__(self):
         #alterar essa para uma matriz onde as casas sao as colunas(j) e os dados da casa sao as linhas(i) assim da para usar o i * m + j
+        self.matriz = matriz = []
+        self.ponto = 0        
+        
+        
+        '''
         self.data = {"color": None, "nationality": None, "drink": None, "smoke": None, "pet": None }
         self.data["position"] = str(position) if str(position) is not None else None
         self.matriz = matriz = []
-
+        '''
     def Discribe(self):
         #impressao das casas, vai alterar tbm pq nao sei se faz sentido isso aqui
         pos = self.data["position"]
@@ -24,15 +29,19 @@ class House():
             return False
         else:
             return True
+
+
 const_list = [0,1,2,3,4]
+individuo = []
 
 def Init_population(population, genAtual):
     
-    for i in range(population):
-        for linha in range(4):
+    for i in range(0, population):
+        individuo.insert(i, House())
+        for linha in range(5):
             valores = random.sample(const_list, len(const_list))
-            for coluna in range(4):        
-                matriz[linha * 5 + coluna] = valores[coluna]
+            for coluna in range(5):        
+                individuo[i].matriz.append(valores[coluna])
                 '''
                 gerar col
                 gerar prs
@@ -42,6 +51,7 @@ def Init_population(population, genAtual):
                 '''
     '''
     '''
+    
     pass
 def Col_Color():
     return 0 * 5
@@ -53,79 +63,84 @@ def Col_Smoke():
     return 3 * 5
 def Col_Pet():
     return 4 * 5
-def getHouseByColor (color):
-        for i in range(4):
-            if(matriz[0* 5 + i] == color):
+def getHouseByColor (individuo, k, color):
+        for i in range(5):
+            if(individuo[k].matriz[0* 5 + i] == color):
                 return i
-def getHouseByNacionality (nacionality):
-        for i in range(4):
-            if(matriz[1* 5 + i] == nacionality):
+def getHouseByNacionality (individuo, k, nacionality):
+        for i in range(5):
+            if(individuo[k].matriz[1* 5 + i] == nacionality):
                 return i
 
-def getHouseByDrink (drink):
-        for i in range(4):
-            if(matriz[2* 5 + i] == drink):
+def getHouseByDrink (individuo, k, drink):
+        for i in range(5):
+            if(individuo[k].matriz[2* 5 + i] == drink):
                 return i
-def getHouseBySmoke (smoke):
-        for i in range(4):
-            if(matriz[3* 5 + i] == smoke):
+def getHouseBySmoke (individuo, k, smoke):
+        for i in range(5):
+            if(individuo[k].matriz[3* 5 + i] == smoke):
                 return i
-def getHouseByPet (pet):
-        for i in range(4):
-            if(matriz[4* 5 + i] == pet):
+def getHouseByPet (individuo, k, pet):
+        for i in range(5):
+            if(individuo[k].matriz[4* 5 + i] == pet):
                 return i
 def Evaluation(population, genAtual):
-        
+    for i in range(population):    
         # O Norueguês vive na primeira casa.
-        if(matriz[Col_Nacionality() + 0]== 3):
-            pass # ponto = ponto +1
+        if(individuo[i].matriz[Col_Nacionality() + 0]== 3):
+            individuo[i].ponto = individuo[i].ponto +1
         # O Inglês vive na casa Vermelha.
-        if (matriz[Col_Nacionality() + getHouseByColor(4)] == 2):
-            pass # ponto = ponto +1
+        if (individuo[i].matriz[Col_Nacionality() + getHouseByColor(individuo,i,4)] == 2):
+            individuo[i].ponto = individuo[i].ponto +1
         # O Sueco tem Cachorros como animais de estimação.
-        if (matriz[Col_Pet() + getHouseByNacionality(4)] == 0) :
-            pass  # ponto = ponto +1
+        if (individuo[i].matriz[Col_Pet() + getHouseByNacionality(individuo,i,4)] == 0) :
+            individuo[i].ponto = individuo[i].ponto +1
         # O Dinamarquês bebe Chá.
-        if (matriz[Col_Drink() + getHouseByNacionality(1)] == 3):
-            pass  # ponto = ponto +1
+        if (individuo[i].matriz[Col_Drink() + getHouseByNacionality(individuo,i,1)] == 3):
+            individuo[i].ponto = individuo[i].ponto +1
         # A casa Verde fica do lado esquerdo da casa Branca.
-        if (matriz[Col_Color() + getHouseByColor(3)+ 1] == 2):
-            pass  # ponto = ponto +1
+        if (individuo[i].matriz[Col_Color() + getHouseByColor(individuo,i,3)+ 1] == 2):
+            individuo[i].ponto = individuo[i].ponto +1
         # O homem que vive na casa Verde bebe Café.
-        if (matriz[Col_Drink() + getHouseByColor(3)] == 2):
-            pass  # ponto = ponto +1
+        if (individuo[i].matriz[Col_Drink() + getHouseByColor(individuo,i,3)] == 2):
+            individuo[i].ponto = individuo[i].ponto +1
         # O homem que fuma Pall Mall cria Pássaros.
-        if (matriz[Col_Pet() + getHouseBySmoke(3)] == 3):
-            pass  # ponto = ponto +1
+        if (individuo[i].matriz[Col_Pet() + getHouseBySmoke(individuo,i,3)] == 3):
+            individuo[i].ponto = individuo[i].ponto +1
         # O homem que vive na casa Amarela fuma Dunhill.
-        if (matriz[Col_Smoke() + getHouseByColor(0)] == 2):
-            pass  # ponto = ponto +1
+        if (individuo[i].matriz[Col_Smoke() + getHouseByColor(individuo,i,0)] == 2):
+            individuo[i].ponto = individuo[i].ponto +1
         # O homem que vive na casa do meio bebe Leite.
-        if (matriz[Col_Drink() + 2] == 4):
-            pass  # ponto = ponto +1
+        if (individuo[i].matriz[Col_Drink() + 2] == 4):
+            individuo[i].ponto = individuo[i].ponto +1
         # O homem que fuma Blends vive ao lado do que tem Gatos.
-        if (abs(getHouseBySmoke(0) - getHouseByPet(2)) == 1):
-            pass  # ponto = ponto +1
+        if (abs(getHouseBySmoke(individuo,i,0) - getHouseByPet(individuo,i,2)) == 1):
+            individuo[i].ponto = individuo[i].ponto +1
         # O homem que cria Cavalos vive ao lado do que fuma Dunhill.
-        if (abs(getHouseBySmoke(2) - getHouseByPet(1)) == 1):
-            pass  # ponto = ponto +1
+        if (abs(getHouseBySmoke(individuo,i,2) - getHouseByPet(individuo,i,1)) == 1):
+            individuo[i].ponto = individuo[i].ponto +1
         # O homem que fuma BlueMaster bebe Cerveja.
-        if (matriz[Col_Drink() + getHouseBySmoke(1)] == 2):
-            pass  # ponto = ponto +1
+        if (individuo[i].matriz[Col_Drink() + getHouseBySmoke(individuo,i,1)] == 2):
+            individuo[i].ponto = individuo[i].ponto +1
         # O Alemão fuma Prince.
-        if (matriz[Col_Smoke() + getHouseByNacionality(0)] == 4):
-            pass   # ponto = ponto +1
+        if (individuo[i].matriz[Col_Smoke() + getHouseByNacionality(individuo,i,0)] == 4):
+            individuo[i].ponto = individuo[i].ponto +1
         # O Norueguês vive ao lado da casa Azul.
-        if (abs(getHouseByNacionality(3) - getHouseByColor(1)) == 1):
-            pass  # ponto = ponto +1
+        if (abs(getHouseByNacionality(individuo,i,3) - getHouseByColor(individuo,i,1)) == 1):
+            individuo[i].ponto = individuo[i].ponto +1
         # O homem que fuma Blends é vizinho do que bebe Água.
-        if (abs(getHouseBySmoke(0) - getHouseByDrink(0)) == 1):
-            pass  # ponto = ponto +1
+        if (abs(getHouseBySmoke(individuo,i,0) - getHouseByDrink(individuo,i,0)) == 1):
+            individuo[i].ponto = individuo[i].ponto +1
         '''
         avaliar de acordo as perguntas
         '''
-        pass
+        return #retorna lista de inviduo ordenado pelos pontos.
+        # qualquer coisa da de criar um merge sort da vida.
+        
 def SelectParent(population, currGen):
+        
+        for i in range(100):
+            del individuo[i]
         '''
         salvar os iram fazer parte da proxima geracao
         '''
@@ -170,9 +185,10 @@ def Rng():
 
 def main():
     currGen = 0
-    lastGen = 100
-    population = 100
+    lastGen = 1
+    population = 5
     Init_population(population, currGen)
+    
     Evaluation(population, currGen)
     while currGen == lastGen:
         currGen = currGen + 1
@@ -182,7 +198,8 @@ def main():
         Evaluation(population, currGen)
         Suvivors(population, currGen)
         
-    
+    for i in range(population):
+        print(individuo[i].matriz,"\n", individuo[i].ponto) 
 
 
 if __name__ == '__main__':
