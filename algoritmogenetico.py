@@ -1,6 +1,6 @@
 #eu alterei
 import random
-
+import StopWatch as st
 
 class House:
     def __init__(self):
@@ -184,9 +184,11 @@ def Rng():
         return random(0,4)
 
 def main():
+    stop = st.StopWatch()
     currGen = 0
     lastGen = 1
-    population = 5
+    population = 100
+    stop.start()
     Init_population(population, currGen)
     
     Evaluation(population, currGen)
@@ -199,7 +201,10 @@ def main():
         Suvivors(population, currGen)
         
     for i in range(population):
-        print(individuo[i].matriz,"\n", individuo[i].ponto) 
+        print(individuo[i].matriz,"\n", individuo[i].ponto)
+   
+    stop.stop()
+    print(stop.getElapsedTime(), "seconds" )
 
 
 if __name__ == '__main__':
