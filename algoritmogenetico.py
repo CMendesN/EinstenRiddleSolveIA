@@ -7,7 +7,7 @@ class House:
         #alterar essa para uma matriz onde as casas sao as colunas(j) e os dados da casa sao as linhas(i) assim da para usar o i * m + j
         self.matriz = matriz = []
         self.ponto = 0        
-        
+        self.numero =0
         
         '''
         self.data = {"color": None, "nationality": None, "drink": None, "smoke": None, "pet": None }
@@ -46,6 +46,7 @@ def Init_population(population, genAtual):
     
     for i in range(0, population):
         individuo.insert(i, House())
+        individuo[i].numero = i + population * genAtual
         for linha in range(5):
             valores = random.sample(const_list, len(const_list))
             for coluna in range(5):        
@@ -96,49 +97,49 @@ def getHouseByPet (individuo, k, pet):
 def Evaluation(population, genAtual):
     for i in range(population):
         individuo[i].ponto = 0
-        # O Norueguês vive na primeira casa.
+        #  1 : O Norueguês vive na primeira casa.
         if(individuo[i].matriz[Col_Nacionality() + 0]== 3):
             individuo[i].ponto = individuo[i].ponto +1
-        # O Inglês vive na casa Vermelha.
+        #  2: O Inglês vive na casa Vermelha.
         if (individuo[i].matriz[Col_Nacionality() + getHouseByColor(individuo,i,4)] == 2):
             individuo[i].ponto = individuo[i].ponto +1
-        # O Sueco tem Cachorros como animais de estimação.
+        #  3: O Sueco tem Cachorros como animais de estimação.
         if (individuo[i].matriz[Col_Pet() + getHouseByNacionality(individuo,i,4)] == 0) :
             individuo[i].ponto = individuo[i].ponto +1
-        # O Dinamarquês bebe Chá.
+        # 4 :O Dinamarquês bebe Chá.
         if (individuo[i].matriz[Col_Drink() + getHouseByNacionality(individuo,i,1)] == 3):
             individuo[i].ponto = individuo[i].ponto +1
-        # A casa Verde fica do lado esquerdo da casa Branca.
+        # 5: A casa Verde fica do lado esquerdo da casa Branca.
         if (individuo[i].matriz[Col_Color() + getHouseByColor(individuo,i,3)+ 1] == 2):
             individuo[i].ponto = individuo[i].ponto +1
-        # O homem que vive na casa Verde bebe Café.
+        # 6: O homem que vive na casa Verde bebe Café.
         if (individuo[i].matriz[Col_Drink() + getHouseByColor(individuo,i,3)] == 2):
             individuo[i].ponto = individuo[i].ponto +1
-        # O homem que fuma Pall Mall cria Pássaros.
+        # 7: O homem que fuma Pall Mall cria Pássaros.
         if (individuo[i].matriz[Col_Pet() + getHouseBySmoke(individuo,i,3)] == 3):
             individuo[i].ponto = individuo[i].ponto +1
-        # O homem que vive na casa Amarela fuma Dunhill.
+        # 8: O homem que vive na casa Amarela fuma Dunhill.
         if (individuo[i].matriz[Col_Smoke() + getHouseByColor(individuo,i,0)] == 2):
             individuo[i].ponto = individuo[i].ponto +1
-        # O homem que vive na casa do meio bebe Leite.
+        # 9: O homem que vive na casa do meio bebe Leite.
         if (individuo[i].matriz[Col_Drink() + 2] == 4):
             individuo[i].ponto = individuo[i].ponto +1
-        # O homem que fuma Blends vive ao lado do que tem Gatos.
+        # 10: O homem que fuma Blends vive ao lado do que tem Gatos.
         if (abs(getHouseBySmoke(individuo,i,0) - getHouseByPet(individuo,i,2)) == 1):
             individuo[i].ponto = individuo[i].ponto +1
-        # O homem que cria Cavalos vive ao lado do que fuma Dunhill.
+        # 11: O homem que cria Cavalos vive ao lado do que fuma Dunhill.
         if (abs(getHouseBySmoke(individuo,i,2) - getHouseByPet(individuo,i,1)) == 1):
             individuo[i].ponto = individuo[i].ponto +1
-        # O homem que fuma BlueMaster bebe Cerveja.
+        # 12: O homem que fuma BlueMaster bebe Cerveja.
         if (individuo[i].matriz[Col_Drink() + getHouseBySmoke(individuo,i,1)] == 2):
             individuo[i].ponto = individuo[i].ponto +1
-        # O Alemão fuma Prince.
+        # 13: O Alemão fuma Prince.
         if (individuo[i].matriz[Col_Smoke() + getHouseByNacionality(individuo,i,0)] == 4):
             individuo[i].ponto = individuo[i].ponto +1
-        # O Norueguês vive ao lado da casa Azul.
+        # 14: O Norueguês vive ao lado da casa Azul.
         if (abs(getHouseByNacionality(individuo,i,3) - getHouseByColor(individuo,i,1)) == 1):
             individuo[i].ponto = individuo[i].ponto +1
-        # O homem que fuma Blends é vizinho do que bebe Água.
+        # 15: O homem que fuma Blends é vizinho do que bebe Água.
         if (abs(getHouseBySmoke(individuo,i,0) - getHouseByDrink(individuo,i,0)) == 1):
             individuo[i].ponto = individuo[i].ponto +1
         '''
@@ -203,7 +204,7 @@ def main():
     stop = st.StopWatch()
     currGen = 0
     lastGen = 1
-    population = 100
+    population = 240000
     stop.start()
     Init_population(population, currGen)    
     Evaluation(population, currGen)
@@ -217,11 +218,11 @@ def main():
             break
         Suvivors(population, currGen)
 
-    
+    '''
     for i in range(population):
         print(individuo[i].matriz,"\n", individuo[i].ponto)
-
-    print("Melhor individuo:\n",individuo[0].matriz,"\n", individuo[0].ponto)
+    '''
+    print("Melhor individuo: ",individuo[0].numero,"\n",individuo[0].matriz,"\n", "Pontos: ", individuo[0].ponto)
     stop.stop()
     print(stop.getElapsedTime(), "seconds" )
 
