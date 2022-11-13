@@ -1,7 +1,7 @@
 #eu alterei
 import random
 import StopWatch as st
-
+from functools import cmp_to_key
 class House:
     def __init__(self):
         #alterar essa para uma matriz onde as casas sao as colunas(j) e os dados da casa sao as linhas(i) assim da para usar o i * m + j
@@ -24,12 +24,20 @@ class House:
         smk = self.data["smoke"]
         print("House #" + str(pos) + ":\t" + col + ",\t" + prs + ",\t" + pet + ",\t" + drk + ",\t" + smk)
     
+    
     def isEmpty(self):
         if not None in self.data.values():
             return False
         else:
             return True
 
+def compare( this, other):
+        if(this.ponto < other.ponto):
+            return -1
+        if(this.ponto == other.ponto):
+            return 0
+        if(this.ponto > other.ponto):
+            return 1
 
 const_list = [0,1,2,3,4]
 individuo = []
@@ -53,6 +61,7 @@ def Init_population(population, genAtual):
     '''
     
     pass
+
 def Col_Color():
     return 0 * 5
 def Col_Nacionality():
@@ -85,7 +94,8 @@ def getHouseByPet (individuo, k, pet):
             if(individuo[k].matriz[4* 5 + i] == pet):
                 return i
 def Evaluation(population, genAtual):
-    for i in range(population):    
+    for i in range(population):
+        individuo[i].ponto = 0
         # O Norueguês vive na primeira casa.
         if(individuo[i].matriz[Col_Nacionality() + 0]== 3):
             individuo[i].ponto = individuo[i].ponto +1
@@ -134,7 +144,8 @@ def Evaluation(population, genAtual):
         '''
         avaliar de acordo as perguntas
         '''
-        return #retorna lista de inviduo ordenado pelos pontos.
+        
+    return sort()
         # qualquer coisa da de criar um merge sort da vida.
         
 def SelectParent(population, currGen):
@@ -182,27 +193,35 @@ def Suvivors(population, currGen):
         pass
 def Rng():
         return random(0,4)
-
+def sort():
+    individuoSort = sorted(individuo, key = cmp_to_key(compare))
+    for i in range(len(individuoSort)):
+        individuo[i] = individuoSort[i]
+    individuo.reverse()
+    
 def main():
     stop = st.StopWatch()
     currGen = 0
     lastGen = 1
     population = 100
     stop.start()
-    Init_population(population, currGen)
-    
+    Init_population(population, currGen)    
     Evaluation(population, currGen)
     while currGen == lastGen:
         currGen = currGen + 1
         SelectParent(population, currGen)
         CrossOver(population, currGen)
         Mutation(population, currGen)
-        Evaluation(population, currGen)
+        Evaluation(population, currGen)        
+        if(individuo[0].ponto == 15):
+            break
         Suvivors(population, currGen)
-        
+
+    
     for i in range(population):
         print(individuo[i].matriz,"\n", individuo[i].ponto)
-   
+
+    print("Melhor individuo:\n",individuo[0].matriz,"\n", individuo[0].ponto)
     stop.stop()
     print(stop.getElapsedTime(), "seconds" )
 
