@@ -3,12 +3,12 @@ import random
 import StopWatch as st
 from functools import cmp_to_key
 class House:
-    def __init__(self):
+    def __init__(self, population, genAtual):
         #alterar essa para uma matriz onde as casas sao as colunas(j) e os dados da casa sao as linhas(i) assim da para usar o i * m + j
         self.matriz = matriz = []
         self.ponto = 0        
-        self.numero =0
-        
+        self.numero = population * genAtual # preciso de algo que faça i + population * genatual
+        # ja que todas as funcoes usam population e genatual entao da para utilizar para dizer qual o numero dele
         '''
         self.data = {"color": None, "nationality": None, "drink": None, "smoke": None, "pet": None }
         self.data["position"] = str(position) if str(position) is not None else None
@@ -45,7 +45,7 @@ individuo = []
 def Init_population(population, genAtual):
     
     for i in range(0, population):
-        individuo.insert(i, House())
+        individuo.insert(i, House(population, genAtual))
         individuo[i].numero = i + population * genAtual
         for linha in range(5):
             valores = random.sample(const_list, len(const_list))
