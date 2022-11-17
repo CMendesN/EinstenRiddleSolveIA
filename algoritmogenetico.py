@@ -137,8 +137,8 @@ def Evaluation(population, genAtual):
         
 def SelectParent(population, currGen):
         
-        for i in range(100):
-            del individuo[i]
+        #for i in range(100):
+         #   del individuo[i]
         '''
         salvar os iram fazer parte da proxima geracao
         '''
@@ -150,7 +150,25 @@ def CrossOver(population, currGen):
         assim evitando bugar a matriz com valores repetidos e excluindo outros.
         '''
         pass
+def mutacao1(i):
+    selacaoDaCasa = Rng()
+    selacaoDoTipo = Rng()
+    posicaoDaTroca = selacaoDoTipo * 5 + selacaoDaCasa
+    trocaDeDado = Rng()
+    temp = individuo[i].matriz[posicaoDaTroca]
+    for k in range(4):        
+            if individuo[i].matriz[selacaoDoTipo * 5 + k] == trocaDeDado :
+                individuo[i].matriz[posicaoDaTroca] = individuo[i].matriz[selacaoDoTipo * 5 + k]
+                individuo[i].matriz[selacaoDoTipo * 5 + k] = temp
+                break
+    
 def Mutation(population, currGen):
+        
+        for i in range(len(individuo)):
+            mutar = random.randint(1,100)
+            if(mutar < 2):
+                
+                mutacao1(i)
         '''
         se ocorrer alterar alguns valores de posicao
         1 forma da mutacao permutar um parametro
@@ -167,7 +185,7 @@ def Mutation(population, currGen):
 
         2 forma troca todos os parametro da de um tipo
         selacaoDoTipo = Rng()
-        []valores = {0,1,2,3}
+        []valores = {0,1,2,3,4}
         valores.embaralhar
         for i in range(4):
             House.data[selacaoDoTipo * m + i] = valores[i]
@@ -179,7 +197,7 @@ def Suvivors(population, currGen):
         '''
         pass
 def Rng():
-        return random(0,4)
+        return random.randint(0,4)
 def sort():
     individuoSort = sorted(individuo, key = cmp_to_key(compare))
     for i in range(len(individuoSort)):
@@ -189,12 +207,12 @@ def sort():
 def main():
     stop = st.StopWatch()
     currGen = 0
-    lastGen = 1
+    lastGen = 100000
     population = 100
     stop.start()
     Init_population(population, currGen)    
     Evaluation(population, currGen)
-    while currGen == lastGen:
+    while currGen != lastGen:
         currGen = currGen + 1
         SelectParent(population, currGen)
         CrossOver(population, currGen)
