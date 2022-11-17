@@ -164,19 +164,23 @@ def SelectParent(population, currGen):
 def CrossOver(population, currGen):
         cross_list = []
         
-        for i in range(int(len(individuo)*0.90)):
-            cross = random.randint(1,100)
-            if(cross < 101):
+        for i in range(len(individuo)):
+            cross = random.random()
+            if(cross < 0.81):
                 cross_list.append(i)
         
-        #if (len(cross_list)%2 != 0):
-         #       del cross_list[len(cross_list)-1]
+        if (len(cross_list)%2 != 0):
+               del cross_list[len(cross_list)-1]
         
         random.shuffle(cross_list)        
-        for k in range(len(cross_list)):            
-            if(k < len(cross_list)-2):
+        for k in range(int(len(cross_list)/2)):            
+            if(k < len(cross_list)-1):
                 individuo.append(House())
                 individuo.append(House())
+                individuo[len(individuo) - 2].matriz = individuo[cross_list[k]].matriz[0:10] + individuo[cross_list[len(cross_list)-1-k]].matriz[10:25]
+                individuo[len(individuo) - 1].matriz = individuo[cross_list[len(cross_list)-1-k]].matriz[0:10] + individuo[cross_list[k]].matriz[10:25]
+                #k = k+1
+                '''
                 for j in range(len(individuo[cross_list[k]].matriz)):
                     if j < 10:
                         individuo[len(individuo) - 2].matriz.insert(j, individuo[cross_list[k]].matriz[j])
@@ -188,8 +192,9 @@ def CrossOver(population, currGen):
                         individuo[len(individuo) - 1].matriz.insert(m, individuo[cross_list[k]].matriz[m])
                     if m >= 10:
                         individuo[len(individuo) - 2].matriz.insert(m, individuo[cross_list[k]].matriz[m]) 
-             #   print(individuo[len(individuo) - 2].matriz,"\n")
-              #  print(individuo[len(individuo) - 1].matriz,"\n")
+                '''
+               # print(individuo[len(individuo) - 2].matriz,"\n")
+               # print(individuo[len(individuo) - 1].matriz,"\n")
         cross_list.clear()
         '''
         fazer a trocar pelas linhas. 
@@ -217,10 +222,15 @@ def mutacao2(k):
 def Mutation(population, currGen):
         
         for i in range(len(individuo)):
-            mutar = random.randint(1,100)
-            if(mutar < 3):
+            mutar = random.random()
+            if(mutar < 0.02):
                 
-                mutacao2(i)
+                if mutar<0.005:
+                    
+                    mutacao2(i)
+                else:
+                    
+                    mutacao1(i)
         '''
         se ocorrer alterar alguns valores de posicao
         1 forma da mutacao permutar um parametro
@@ -243,15 +253,19 @@ def Mutation(population, currGen):
             House.data[selacaoDoTipo * m + i] = valores[i]
         '''     
         pass     
+flag = 0
 def Suvivors(population, currGen):
-    del(individuo[int(population*0.1):len(individuo)])
+    del(individuo[population-int(population*0.2):len(individuo)])
+    global flag 
+    flag = flag + 1
+    if(flag%15==0):
         
-    for i in range(len(individuo), population):
-        individuo.insert(i, House())
-        for linha in range(5):
-            valores = random.sample(const_list, len(const_list))
-            for coluna in range(5):        
-                individuo[i].matriz.append(valores[coluna])
+        for i in range(len(individuo), population):
+            individuo.insert(i, House())
+            for linha in range(5):
+                valores = random.sample(const_list, len(const_list))
+                for coluna in range(5):        
+                    individuo[i].matriz.append(valores[coluna])
     '''
     resposta=[0,1,4,3,2,3,1,2,0,4,0,3,4,1,2,2,0,3,4,1,2,1,3,4,0]
     individuo.insert(len(individuo), House())
@@ -272,8 +286,8 @@ def sort():
 def main():
     stop = st.StopWatch()
     currGen = 0
-    lastGen = 100
-    population = 100000
+    lastGen = 1000000
+    population = 100
     stop.start()
     Init_population(population, currGen)    
     Evaluation(population, currGen)
@@ -285,13 +299,14 @@ def main():
         Evaluation(population, currGen)        
         if(individuo[0].ponto == 15):
             break
-        #print("Melhor da geracao: ",individuo[0].numero,"\n",individuo[0].matriz,"\n", "Pontos: ", individuo[0].ponto)
+        #print("Melhor da geracao: ",individuo[0].numero, "Pontos: ", individuo[0].ponto)
         Suvivors(population, currGen)
         
-    '''
-    for i in range(population):
+    
+    for i in range(len(individuo)):
         print(individuo[i].matriz,"\n", individuo[i].ponto)
-    '''
+    print(len(individuo))
+    
     print("Melhor individuo: ",individuo[0].numero,"\n",individuo[0].matriz,"\n", "Pontos: ", individuo[0].ponto)
     stop.stop()
     print(stop.getElapsedTime(), "seconds" )
