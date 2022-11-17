@@ -69,19 +69,21 @@ def getHouseByNacionality (individuo, k, nacionality):
                 return i
 
 def getHouseByDrink (individuo, k, drink):
-        for i in range(5):
+        for i in range(0,5):
             if(individuo[k].matriz[2* 5 + i] == drink):
                 return i
+
 def getHouseBySmoke (individuo, k, smoke):
         for i in range(5):
             if(individuo[k].matriz[3* 5 + i] == smoke):
                 return i
+        
 def getHouseByPet (individuo, k, pet):
         for i in range(5):
             if(individuo[k].matriz[4* 5 + i] == pet):
                 return i
 def Evaluation(population, genAtual):
-    for i in range(population):
+    for i in range(0,population):
         individuo[i].ponto = 0
         #  1 : O Norueguês vive na primeira casa.
         if(individuo[i].matriz[Col_Nacionality() + 0]== 3):
@@ -149,24 +151,29 @@ def CrossOver(population, currGen):
             cross = random.randint(1,100)
             if(cross < 80):
                 cross_list.append(i)
+        
         if (len(cross_list)%2 != 0):
                 del cross_list[len(cross_list)-1]
-        for k in range(len(cross_list)):
-            
-            if(k< len(cross_list)-2):
+        
+        random.shuffle(cross_list)        
+        for k in range(len(cross_list)):            
+            if(k < len(cross_list)-2):
                 individuo.append(House())
                 individuo.append(House())
-                for j in range(25):
-                    if j < 11:
+                for j in range(len(individuo[cross_list[k]].matriz)):
+                    if j < 10:
                         individuo[len(individuo) - 2].matriz.insert(j, individuo[cross_list[k]].matriz[j])
-                    if j > 10:
+                    if j >= 10:
                         individuo[len(individuo) - 1].matriz.insert(j, individuo[cross_list[k]].matriz[j])                    
                 k=k+1
-                for m in range(25):
-                    if m < 11:
+                for m in range(len(individuo[cross_list[k]].matriz)):
+                    if m < 10:
                         individuo[len(individuo) - 1].matriz.insert(m, individuo[cross_list[k]].matriz[m])
-                    if m > 10:
+                    if m >= 10:
                         individuo[len(individuo) - 2].matriz.insert(m, individuo[cross_list[k]].matriz[m]) 
+             #   print(individuo[len(individuo) - 2].matriz,"\n")
+              #  print(individuo[len(individuo) - 1].matriz,"\n")
+        cross_list.clear()
         '''
         fazer a trocar pelas linhas. 
         exemplo pegar a cor e a nacionalide de um e botar com a bebido o cigarro e o animal de outro.
@@ -215,9 +222,7 @@ def Mutation(population, currGen):
         '''     
         pass     
 def Suvivors(population, currGen):
-        if(len(individuo)<100):
-            for i in range(101, len(individuo)):
-                del individuo[i]
+        del(individuo[population:len(individuo)])
         
         '''
         pegar as melhores avaliacoes
@@ -234,7 +239,7 @@ def sort():
 def main():
     stop = st.StopWatch()
     currGen = 0
-    lastGen = 100
+    lastGen = 100000
     population = 100
     stop.start()
     Init_population(population, currGen)    
@@ -247,8 +252,9 @@ def main():
         Evaluation(population, currGen)        
         if(individuo[0].ponto == 15):
             break
+        print("Melhor da geracao: ",individuo[0].numero,"\n",individuo[0].matriz,"\n", "Pontos: ", individuo[0].ponto)
         Suvivors(population, currGen)
-
+        
     '''
     for i in range(population):
         print(individuo[i].matriz,"\n", individuo[i].ponto)
