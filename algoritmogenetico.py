@@ -2,35 +2,23 @@
 import random
 import StopWatch as st
 from functools import cmp_to_key
+#bota variavel global para numeração de individuos
+num = 0
 class House:
-    def __init__(self, population, genAtual):
+    def __init__(self):
         #alterar essa para uma matriz onde as casas sao as colunas(j) e os dados da casa sao as linhas(i) assim da para usar o i * m + j
         self.matriz = matriz = []
-        self.ponto = 0        
-        self.numero = population * genAtual # preciso de algo que faça i + population * genatual
+        self.ponto = 0       
+        global num
+        num = num +1
+        self.numero = num # preciso de algo que faça i + population * genatual
         # ja que todas as funcoes usam population e genatual entao da para utilizar para dizer qual o numero dele
         '''
         self.data = {"color": None, "nationality": None, "drink": None, "smoke": None, "pet": None }
         self.data["position"] = str(position) if str(position) is not None else None
         self.matriz = matriz = []
         '''
-    def Discribe(self):
-        #impressao das casas, vai alterar tbm pq nao sei se faz sentido isso aqui
-        pos = self.data["position"]
-        col = self.data["color"]
-        prs = self.data["person"]
-        pet = self.data["pet"]
-        drk = self.data["drink"]
-        smk = self.data["smoke"]
-        print("House #" + str(pos) + ":\t" + col + ",\t" + prs + ",\t" + pet + ",\t" + drk + ",\t" + smk)
     
-    
-    def isEmpty(self):
-        if not None in self.data.values():
-            return False
-        else:
-            return True
-
 def compare( this, other):
         if(this.ponto < other.ponto):
             return -1
@@ -42,11 +30,9 @@ def compare( this, other):
 const_list = [0,1,2,3,4]
 individuo = []
 
-def Init_population(population, genAtual):
-    
+def Init_population(population, genAtual):    
     for i in range(0, population):
-        individuo.insert(i, House(population, genAtual))
-        individuo[i].numero = i + population * genAtual
+        individuo.insert(i, House())
         for linha in range(5):
             valores = random.sample(const_list, len(const_list))
             for coluna in range(5):        
@@ -204,7 +190,7 @@ def main():
     stop = st.StopWatch()
     currGen = 0
     lastGen = 1
-    population = 240000
+    population = 100
     stop.start()
     Init_population(population, currGen)    
     Evaluation(population, currGen)
