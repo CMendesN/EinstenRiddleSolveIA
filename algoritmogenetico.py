@@ -144,6 +144,29 @@ def SelectParent(population, currGen):
         '''
         pass
 def CrossOver(population, currGen):
+        cross_list = []
+        for i in range(len(individuo)):
+            cross = random.randint(1,100)
+            if(cross < 80):
+                cross_list.append(i)
+        if (len(cross_list)%2 != 0):
+                del cross_list[len(cross_list)-1]
+        for k in range(len(cross_list)):
+            
+            if(k< len(cross_list)-2):
+                individuo.append(House())
+                individuo.append(House())
+                for j in range(25):
+                    if j < 11:
+                        individuo[len(individuo) - 2].matriz.insert(j, individuo[cross_list[k]].matriz[j])
+                    if j > 10:
+                        individuo[len(individuo) - 1].matriz.insert(j, individuo[cross_list[k]].matriz[j])                    
+                k=k+1
+                for m in range(25):
+                    if m < 11:
+                        individuo[len(individuo) - 1].matriz.insert(m, individuo[cross_list[k]].matriz[m])
+                    if m > 10:
+                        individuo[len(individuo) - 2].matriz.insert(m, individuo[cross_list[k]].matriz[m]) 
         '''
         fazer a trocar pelas linhas. 
         exemplo pegar a cor e a nacionalide de um e botar com a bebido o cigarro e o animal de outro.
@@ -192,6 +215,10 @@ def Mutation(population, currGen):
         '''     
         pass     
 def Suvivors(population, currGen):
+        if(len(individuo)<100):
+            for i in range(101, len(individuo)):
+                del individuo[i]
+        
         '''
         pegar as melhores avaliacoes
         '''
@@ -207,7 +234,7 @@ def sort():
 def main():
     stop = st.StopWatch()
     currGen = 0
-    lastGen = 100000
+    lastGen = 100
     population = 100
     stop.start()
     Init_population(population, currGen)    
