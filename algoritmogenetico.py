@@ -11,13 +11,7 @@ class House:
         self.ponto = 0       
         global num
         num = num +1
-        self.numero = num # preciso de algo que faça i + population * genatual
-        # ja que todas as funcoes usam population e genatual entao da para utilizar para dizer qual o numero dele
-        '''
-        self.data = {"color": None, "nationality": None, "drink": None, "smoke": None, "pet": None }
-        self.data["position"] = str(position) if str(position) is not None else None
-        self.matriz = matriz = []
-        '''
+        self.numero = num 
     
 def compare( this, other):
         if(this.ponto < other.ponto):
@@ -37,17 +31,6 @@ def Init_population(population, genAtual):
             valores = random.sample(const_list, len(const_list))
             for coluna in range(5):        
                 individuo[i].matriz.append(valores[coluna])
-                '''
-                gerar col
-                gerar prs
-                gerar pet
-                gerar drk
-                gerar smk
-                '''
-    '''
-    '''
-    
-    pass
 
 def Col_Color():
     return 0 * 5
@@ -146,19 +129,18 @@ def Evaluation(population, genAtual):
             individuo[i].ponto = individuo[i].ponto +1
             
         
-        '''
-        avaliar de acordo as perguntas
-        '''
+        
         
     return sort()
-        # qualquer coisa da de criar um merge sort da vida.
         
+#cross_list = []       
 def SelectParent(population, currGen):
-        
-        #for i in range(100):
-         #   del individuo[i]
         '''
-        salvar os iram fazer parte da proxima geracao
+        global cross_list
+        for i in range(len(individuo)):
+            fitness =int ((individuo[i].ponto/15)*10)
+            for j in range(fitness):
+                cross_list.append(i)
         '''
         pass
 def CrossOver(population, currGen):
@@ -201,7 +183,7 @@ def CrossOver(population, currGen):
         exemplo pegar a cor e a nacionalide de um e botar com a bebido o cigarro e o animal de outro.
         assim evitando bugar a matriz com valores repetidos e excluindo outros.
         '''
-        pass
+        
 def mutacao1(i):
     selacaoDaCasa = Rng()
     selacaoDoTipo = Rng()
@@ -213,12 +195,36 @@ def mutacao1(i):
                 individuo[i].matriz[posicaoDaTroca] = individuo[i].matriz[selacaoDoTipo * 5 + k]
                 individuo[i].matriz[selacaoDoTipo * 5 + k] = temp
                 break
+
 def mutacao2(k):
     selacaoDoTipo = Rng()
     valores = random.sample(const_list, len(const_list))
     for i in range(5):
         individuo[k].matriz[selacaoDoTipo * 5 + i] = valores[i]
-    
+
+def mutacao3(k):
+    for j in range(5):
+        moeda = random.randint(0,1)        
+        if(moeda == 1):    
+            valores = random.sample(const_list, len(const_list))
+            for i in range(5):
+                individuo[k].matriz[j * 5 + i] = valores[i]   
+
+def mutacao4(k):
+    for i in range(5):
+        for j in range(5):
+            moeda = random.randint(0,1)
+            if(moeda == 1):
+                trocaDeDado = Rng() #1
+            while trocaDeDado == individuo[k].matriz[i*5+j]:
+                trocaDeDado = Rng()
+            temp = individuo[k].matriz[i*5+j] #3
+            for m in range(5):   
+                if individuo[k].matriz[i*5+m] == trocaDeDado:
+                    individuo[k].matriz[i*5+j] = individuo[k].matriz[i*5+m]
+                    individuo[k].matriz[i*5+m] = temp
+                    break
+     
 def Mutation(population, currGen):
         
         for i in range(len(individuo)):
@@ -231,28 +237,7 @@ def Mutation(population, currGen):
                 else:
                     
                     mutacao1(i)
-        '''
-        se ocorrer alterar alguns valores de posicao
-        1 forma da mutacao permutar um parametro
-        selacaoDaCasa = Rng()
-        selacaoDoTipo = Rng()
-        posicaoDaTroca = selacaoDoTipo * m + selacaoDeCasa
-        trocaDeDado = Rng()
-        temp = House.data[posicaoDaTroca]
-        for i in range(4):        
-            if House.data[selacaoDoTipo * m + i] == trocaDado :
-                House.data[posicaoDaTroca] = House.data[selacaoDoTipo * m + i]
-                House.data[selacaoDoTipo * m + i] = temp
-                break
-
-        2 forma troca todos os parametro da de um tipo
-        selacaoDoTipo = Rng()
-        []valores = {0,1,2,3,4}
-        valores.embaralhar
-        for i in range(4):
-            House.data[selacaoDoTipo * m + i] = valores[i]
-        '''     
-        pass     
+            
 flag = 0
 def Suvivors(population, currGen):
     del(individuo[population-int(population*0.2):len(individuo)])
@@ -286,8 +271,8 @@ def sort():
 def main():
     stop = st.StopWatch()
     currGen = 0
-    lastGen = 1000000
-    population = 100
+    lastGen = 1000
+    population = 200
     stop.start()
     Init_population(population, currGen)    
     Evaluation(population, currGen)
