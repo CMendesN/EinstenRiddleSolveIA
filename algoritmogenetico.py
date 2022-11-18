@@ -287,11 +287,11 @@ def main():
         #print("Melhor da geracao: ",individuo[0].numero, "Pontos: ", individuo[0].ponto)
         Suvivors(population, currGen)
         
-    
+    '''
     for i in range(len(individuo)):
         print(individuo[i].matriz,"\n", individuo[i].ponto)
     print(len(individuo))
-    
+    '''
     print("Melhor individuo: ",individuo[0].numero,"\n",individuo[0].matriz,"\n", "Pontos: ", individuo[0].ponto)
     stop.stop()
     print(stop.getElapsedTime(), "seconds" )
