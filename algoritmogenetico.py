@@ -216,14 +216,14 @@ def mutacao4(k):
             moeda = random.randint(0,1)
             if(moeda == 1):
                 trocaDeDado = Rng() #1
-            while trocaDeDado == individuo[k].matriz[i*5+j]:
-                trocaDeDado = Rng()
-            temp = individuo[k].matriz[i*5+j] #3
-            for m in range(5):   
-                if individuo[k].matriz[i*5+m] == trocaDeDado:
-                    individuo[k].matriz[i*5+j] = individuo[k].matriz[i*5+m]
-                    individuo[k].matriz[i*5+m] = temp
-                    break
+                while trocaDeDado == individuo[k].matriz[i*5+j]:
+                    trocaDeDado = Rng()
+                temp = individuo[k].matriz[i*5+j] #3
+                for m in range(5):   
+                    if individuo[k].matriz[i*5+m] == trocaDeDado:
+                        individuo[k].matriz[i*5+j] = individuo[k].matriz[i*5+m]
+                        individuo[k].matriz[i*5+m] = temp
+                        break
      
 def Mutation(population, currGen):
         
