@@ -70,12 +70,12 @@ def Evaluation(population, genAtual):
         individuo[i].ponto = 0
         #  1 : O Norueguês vive na primeira casa.
         if(individuo[i].matriz[Col_Nacionality() + 0]== 3):
-            individuo[i].ponto = individuo[i].ponto +1
+            individuo[i].ponto = individuo[i].ponto +3
         else:
             individuo[i].ponto = individuo[i].ponto -1    
         #  2: O Inglês vive na casa Vermelha.
         if (individuo[i].matriz[Col_Nacionality() + getHouseByColor(individuo,i,4)] == 2):
-            individuo[i].ponto = individuo[i].ponto +1
+            individuo[i].ponto = individuo[i].ponto +3
         else:
             individuo[i].ponto = individuo[i].ponto -1    
         #  3: O Sueco tem Cachorros como animais de estimação.
@@ -90,12 +90,12 @@ def Evaluation(population, genAtual):
             individuo[i].ponto = individuo[i].ponto -1    
         # 5: A casa Verde fica do lado esquerdo da casa Branca.
         if (individuo[i].matriz[Col_Color() + getHouseByColor(individuo,i,3)+ 1] == 2):
-            individuo[i].ponto = individuo[i].ponto +1
+            individuo[i].ponto = individuo[i].ponto +3
         else:
             individuo[i].ponto = individuo[i].ponto -1    
         # 6: O homem que vive na casa Verde bebe Café.
         if (individuo[i].matriz[Col_Drink() + getHouseByColor(individuo,i,3)] == 1):
-            individuo[i].ponto = individuo[i].ponto +1
+            individuo[i].ponto = individuo[i].ponto +3
         else:
             individuo[i].ponto = individuo[i].ponto -1    
         # 7: O homem que fuma Pall Mall cria Pássaros.
@@ -110,7 +110,7 @@ def Evaluation(population, genAtual):
             individuo[i].ponto = individuo[i].ponto -1    
         # 9: O homem que vive na casa do meio bebe Leite.
         if (individuo[i].matriz[Col_Drink() + 2] == 4):
-            individuo[i].ponto = individuo[i].ponto +1
+            individuo[i].ponto = individuo[i].ponto +3
         else:
             pass
             #individuo[i].ponto = individuo[i].ponto -1    
@@ -136,13 +136,13 @@ def Evaluation(population, genAtual):
             individuo[i].ponto = individuo[i].ponto -1    
         # 14: O Norueguês vive ao lado da casa Azul.
         if (abs(getHouseByNacionality(individuo,i,3) - getHouseByColor(individuo,i,1)) == 1):
-            individuo[i].ponto = individuo[i].ponto +1
+            individuo[i].ponto = individuo[i].ponto +2
         else:
             pass
             #individuo[i].ponto = individuo[i].ponto -1    
         # 15: O homem que fuma Blends é vizinho do que bebe Água.
         if (abs(getHouseBySmoke(individuo,i,0) - getHouseByDrink(individuo,i,0)) == 1):
-            individuo[i].ponto = individuo[i].ponto +1
+            individuo[i].ponto = individuo[i].ponto +2
         else:
             pass
             #individuo[i].ponto = individuo[i].ponto -1    
@@ -274,16 +274,17 @@ def main():
         CrossOver(population, currGen)
         Mutation(population, currGen)
         Evaluation(population, currGen)        
-        if(individuo[0].ponto == 15):
+        if(individuo[0].ponto == 27):
+            print("sucesso")
             break
         if(currGen%50 == 0):
             print("Melhor da geracao: ",individuo[0].numero, "Pontos: ", individuo[0].ponto)
         Suvivors(population, currGen)
         
     
-    for i in range(int(len(individuo)*0.2)):
-        print(individuo[i].matriz,"\n", individuo[i].ponto)
-    #print(len(individuo))
+    #for i in range(int(len(individuo)*0.2)):
+    #    print(individuo[i].matriz,"\n", individuo[i].ponto)
+    print("falha")
     
     print("Melhor individuo: ",individuo[0].numero,"\n",individuo[0].matriz,"\n", "Pontos: ", individuo[0].ponto)
     stop.stop()
