@@ -112,7 +112,8 @@ def Evaluation(population, genAtual):
         if (individuo[i].matriz[Col_Drink() + 2] == 4):
             individuo[i].ponto = individuo[i].ponto +1
         else:
-            individuo[i].ponto = individuo[i].ponto -1    
+            pass
+            #individuo[i].ponto = individuo[i].ponto -1    
         # 10: O homem que fuma Blends vive ao lado do que tem Gatos.
         if (abs(getHouseBySmoke(individuo,i,0) - getHouseByPet(individuo,i,2)) == 1):
             individuo[i].ponto = individuo[i].ponto +1
@@ -137,12 +138,14 @@ def Evaluation(population, genAtual):
         if (abs(getHouseByNacionality(individuo,i,3) - getHouseByColor(individuo,i,1)) == 1):
             individuo[i].ponto = individuo[i].ponto +1
         else:
-            individuo[i].ponto = individuo[i].ponto -1    
+            pass
+            #individuo[i].ponto = individuo[i].ponto -1    
         # 15: O homem que fuma Blends é vizinho do que bebe Água.
         if (abs(getHouseBySmoke(individuo,i,0) - getHouseByDrink(individuo,i,0)) == 1):
             individuo[i].ponto = individuo[i].ponto +1
         else:
-            individuo[i].ponto = individuo[i].ponto -1    
+            pass
+            #individuo[i].ponto = individuo[i].ponto -1    
         
         
         
@@ -176,8 +179,8 @@ def CrossOver(population, currGen):
         
         
 def mutacao1(i):
-    g = random.randint(1,16)
-    for q in range(g):    
+    #g = random.randint(1,2)
+    #for q in range(g):    
         selacaoDaCasa = Rng()
         selacaoDoTipo = Rng()
         posicaoDaTroca = selacaoDoTipo * 5 + selacaoDaCasa
@@ -222,7 +225,7 @@ def Mutation(population, currGen):
         
         for i in range(len(individuo)):
             mutar = random.random()
-            if(mutar < 0.71):
+            if(mutar > 0.0):
                 #print(len(individuo))
                 mutacao1(i)
                             
@@ -232,15 +235,15 @@ def Suvivors(population, currGen):
     global flag 
     flag = flag + 1
     #if(flag%15==0):
-    '''  
+     
     for i in range(len(individuo), population):
             individuo.insert(i, House())
             for linha in range(5):
                 valores = random.sample(const_list, len(const_list))
                 for coluna in range(5):        
                     individuo[i].matriz.append(valores[coluna])
-    #Evaluation(population, currGen)
-    
+    Evaluation(population, currGen)
+    ''' 
     resposta=[0,1,4,3,2,3,1,2,0,4,0,3,4,1,2,2,0,3,4,1,2,1,3,4,0]
     individuo.insert(len(individuo), House())
     for k in range(25):
@@ -261,7 +264,7 @@ def main():
     stop = st.StopWatch()
     currGen = 0
     lastGen = 1000
-    population = 1000
+    population = 500
     stop.start()
     Init_population(population, currGen)    
     Evaluation(population, currGen)
