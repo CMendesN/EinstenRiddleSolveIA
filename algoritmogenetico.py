@@ -71,63 +71,78 @@ def Evaluation(population, genAtual):
         #  1 : O Norueguês vive na primeira casa.
         if(individuo[i].matriz[Col_Nacionality() + 0]== 3):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         #  2: O Inglês vive na casa Vermelha.
         if (individuo[i].matriz[Col_Nacionality() + getHouseByColor(individuo,i,4)] == 2):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         #  3: O Sueco tem Cachorros como animais de estimação.
         if (individuo[i].matriz[Col_Pet() + getHouseByNacionality(individuo,i,4)] == 0) :
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 4 :O Dinamarquês bebe Chá.
         if (individuo[i].matriz[Col_Drink() + getHouseByNacionality(individuo,i,1)] == 3):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 5: A casa Verde fica do lado esquerdo da casa Branca.
         if (individuo[i].matriz[Col_Color() + getHouseByColor(individuo,i,3)+ 1] == 2):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 6: O homem que vive na casa Verde bebe Café.
         if (individuo[i].matriz[Col_Drink() + getHouseByColor(individuo,i,3)] == 1):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 7: O homem que fuma Pall Mall cria Pássaros.
         if (individuo[i].matriz[Col_Pet() + getHouseBySmoke(individuo,i,3)] == 3):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 8: O homem que vive na casa Amarela fuma Dunhill.
         if (individuo[i].matriz[Col_Smoke() + getHouseByColor(individuo,i,0)] == 2):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 9: O homem que vive na casa do meio bebe Leite.
         if (individuo[i].matriz[Col_Drink() + 2] == 4):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 10: O homem que fuma Blends vive ao lado do que tem Gatos.
         if (abs(getHouseBySmoke(individuo,i,0) - getHouseByPet(individuo,i,2)) == 1):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 11: O homem que cria Cavalos vive ao lado do que fuma Dunhill.
         if (abs(getHouseBySmoke(individuo,i,2) - getHouseByPet(individuo,i,1)) == 1):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 12: O homem que fuma BlueMaster bebe Cerveja.
         if (individuo[i].matriz[Col_Drink() + getHouseBySmoke(individuo,i,1)] == 2):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 13: O Alemão fuma Prince.
         if (individuo[i].matriz[Col_Smoke() + getHouseByNacionality(individuo,i,0)] == 4):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 14: O Norueguês vive ao lado da casa Azul.
         if (abs(getHouseByNacionality(individuo,i,3) - getHouseByColor(individuo,i,1)) == 1):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         # 15: O homem que fuma Blends é vizinho do que bebe Água.
         if (abs(getHouseBySmoke(individuo,i,0) - getHouseByDrink(individuo,i,0)) == 1):
             individuo[i].ponto = individuo[i].ponto +1
-            
+        else:
+            individuo[i].ponto = individuo[i].ponto -1    
         
         
         
@@ -185,16 +200,18 @@ def CrossOver(population, currGen):
         '''
         
 def mutacao1(i):
-    selacaoDaCasa = Rng()
-    selacaoDoTipo = Rng()
-    posicaoDaTroca = selacaoDoTipo * 5 + selacaoDaCasa
-    trocaDeDado = Rng()
-    temp = individuo[i].matriz[posicaoDaTroca]
-    for k in range(4):        
-            if individuo[i].matriz[selacaoDoTipo * 5 + k] == trocaDeDado :
-                individuo[i].matriz[posicaoDaTroca] = individuo[i].matriz[selacaoDoTipo * 5 + k]
-                individuo[i].matriz[selacaoDoTipo * 5 + k] = temp
-                break
+    g = random.randint(1,5)
+    for q in range(g):    
+        selacaoDaCasa = Rng()
+        selacaoDoTipo = Rng()
+        posicaoDaTroca = selacaoDoTipo * 5 + selacaoDaCasa
+        trocaDeDado = Rng()
+        temp = individuo[i].matriz[posicaoDaTroca]
+        for k in range(4):        
+                if individuo[i].matriz[selacaoDoTipo * 5 + k] == trocaDeDado :
+                    individuo[i].matriz[posicaoDaTroca] = individuo[i].matriz[selacaoDoTipo * 5 + k]
+                    individuo[i].matriz[selacaoDoTipo * 5 + k] = temp
+                    break
 
 def mutacao2(k):
     selacaoDoTipo = Rng()
@@ -213,7 +230,7 @@ def mutacao3(k):
 def mutacao4(k):
     for i in range(5):
         for j in range(5):
-            moeda = random.randint(0,1)
+            moeda = 1# random.randint(0,1)
             if(moeda == 1):
                 trocaDeDado = Rng() #1
                 while trocaDeDado == individuo[k].matriz[i*5+j]:
@@ -229,11 +246,11 @@ def Mutation(population, currGen):
         
         for i in range(len(individuo)):
             mutar = random.random()
-            if(mutar < 0.02):
+            if(mutar < 0.35):
                 
                 if mutar<0.005:
                     
-                    mutacao2(i)
+                    mutacao1(i)
                 else:
                     
                     mutacao1(i)
@@ -271,7 +288,7 @@ def sort():
 def main():
     stop = st.StopWatch()
     currGen = 0
-    lastGen = 1000
+    lastGen = 10000
     population = 200
     stop.start()
     Init_population(population, currGen)    
@@ -284,14 +301,14 @@ def main():
         Evaluation(population, currGen)        
         if(individuo[0].ponto == 15):
             break
-        #print("Melhor da geracao: ",individuo[0].numero, "Pontos: ", individuo[0].ponto)
+        print("Melhor da geracao: ",individuo[0].numero, "Pontos: ", individuo[0].ponto)
         Suvivors(population, currGen)
         
-    '''
-    for i in range(len(individuo)):
+    
+    for i in range(len(individuo)*0.2):
         print(individuo[i].matriz,"\n", individuo[i].ponto)
     print(len(individuo))
-    '''
+    
     print("Melhor individuo: ",individuo[0].numero,"\n",individuo[0].matriz,"\n", "Pontos: ", individuo[0].ponto)
     stop.stop()
     print(stop.getElapsedTime(), "seconds" )
