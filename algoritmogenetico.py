@@ -169,7 +169,7 @@ def SelectParent(population, currGen):
        
         global cross_list
         for i in range(len(individuo)):
-            fitness =int(((individuo[i].ponto/15)*10))
+            fitness =int(((individuo[i].ponto/15)*100))
             for j in range(fitness):
                 cross_list.append(i)
         random.shuffle(cross_list)
@@ -267,19 +267,18 @@ def Suvivors(population, currGen):
     sort()
     
     del(individuo[population-int(population*0.80):len(individuo)])
-    ''' 
+     
     global flag 
     flag = flag + 1
-    #if(flag%15==0):
-    
-    for i in range(len(individuo), population):
-            individuo.insert(i, House())
-            for linha in range(5):
-                valores = random.sample(const_list, len(const_list))
-                for coluna in range(5):        
-                    individuo[i].matriz.append(valores[coluna])
-    Evaluation(population, currGen)
-    
+    if(flag%5==0):    
+        for i in range(len(individuo), population):
+                individuo.insert(i, House())
+                for linha in range(5):
+                    valores = random.sample(const_list, len(const_list))
+                    for coluna in range(5):        
+                        individuo[i].matriz.append(valores[coluna])
+        Evaluation(population, currGen)
+    '''
     resposta=[0,1,4,3,2,3,1,2,0,4,0,3,4,1,2,2,0,3,4,1,2,1,3,4,0]
     individuo.insert(len(individuo), House())
     for k in range(25):
