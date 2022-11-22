@@ -169,7 +169,8 @@ def SelectParent(population, currGen):
        
         global cross_list
         for i in range(len(individuo)):
-            fitness =int(((individuo[i].ponto/15)*100))
+            fitness =int(((individuo[i].ponto/15)*10))
+            fitness = pow(fitness, 2)
             for j in range(fitness):
                 cross_list.append(i)
         random.shuffle(cross_list)
@@ -286,7 +287,21 @@ def Suvivors(population, currGen):
         
         pegar as melhores avaliacoes
     '''
-        
+def fenotipo(individuo):
+    matriz = [["Amarela","Azul","Branca","Verde","Vermelha"],["Alemao","Dinamarques","Ingles","Noruegues","Sueco"],
+              ["Agua","Cafe","Cerveja","Cha","Leita"],["Blends","Bluemaster","Dunhill","PallMall","Prince"],
+              ["Cachorros","Cavalos","Gatos","Passaros","Peixes"]]
+    for i in range(5):
+        print("{0}\t\t{1}\t\t{2}\t\t{3}\t\t{4}".format(matriz[i][individuo.matriz[0]],matriz[i][individuo.matriz[1]],matriz[i][individuo.matriz[2]],matriz[i][individuo.matriz[3]],matriz[i][individuo.matriz[4]]))
+        #print(matriz[i][individuo.matriz[0]],matriz[i][individuo.matriz[1]],matriz[i][individuo.matriz[2]],matriz[i][individuo.matriz[3]],matriz[i][individuo.matriz[4]])    
+    '''
+    print(matriz[0][individuo.matriz[0]],matriz[0][individuo.matriz[1]],matriz[0][individuo.matriz[2]],matriz[0][individuo.matriz[3]],matriz[0][individuo.matriz[4]])
+    print(matriz[1][individuo.matriz[0]],matriz[1][individuo.matriz[1]],matriz[1][individuo.matriz[2]],matriz[1][individuo.matriz[3]],matriz[1][individuo.matriz[4]])
+    print(matriz[2][individuo.matriz[0]],matriz[2][individuo.matriz[1]],matriz[2][individuo.matriz[2]],matriz[2][individuo.matriz[3]],matriz[2][individuo.matriz[4]])
+    print(matriz[3][individuo.matriz[0]],matriz[3][individuo.matriz[1]],matriz[3][individuo.matriz[2]],matriz[3][individuo.matriz[3]],matriz[3][individuo.matriz[4]])
+    print(matriz[4][individuo.matriz[0]],matriz[4][individuo.matriz[1]],matriz[4][individuo.matriz[2]],matriz[4][individuo.matriz[3]],matriz[4][individuo.matriz[4]])
+    '''
+    pass        
 def Rng():
         return random.randint(0,4)
 def sort():
@@ -298,8 +313,8 @@ def sort():
 def main():
     stop = st.StopWatch()
     currGen = 0
-    lastGen = 1000
-    population = 500
+    lastGen = 100
+    population = 100
     stop.start()
     Init_population(population, currGen)    
     Evaluation(population, currGen)
@@ -323,6 +338,7 @@ def main():
             print("falha")
     
     print("Melhor individuo: ",individuo[0].numero,"\n",individuo[0].matriz,"\n", "Pontos: ", individuo[0].ponto)
+    fenotipo(individuo[0])
     stop.stop()
     print(stop.getElapsedTime(), "seconds" )
 
