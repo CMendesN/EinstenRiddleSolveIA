@@ -172,7 +172,9 @@ def SelectParent(population, currGen):
         for i in range(len(individuo)):
             fitness =int(((individuo[i].ponto/15)*10))
             if fitness < 0:
-                fitness = fitness*-1
+                
+                fitness = 4
+                
             fitness = pow(fitness, 2)
             for j in range(fitness):
                 cross_list.append(i)
@@ -180,14 +182,15 @@ def SelectParent(population, currGen):
         
         
 def CrossOver(population, currGen):             
-       #if (len(cross_list)%2 != 0):
-        #       del cross_list[len(cross_list)-1]
+    if (len(cross_list) < 2):
+        for i in range(int(len(individuo)*0.2)): 
+            cross_list.append(i)               
         
                 
     for k in range(int(population/2)):
-        print(len(cross_list))
-        a = random.randint(0, len(cross_list)-2)
-        b = random.randint(0, len(cross_list)-2)
+       
+        a = random.randint(0, len(cross_list)-1)
+        b = random.randint(0, len(cross_list)-1)
         child_1 = House()
         child_2 = House()          
         midpoint = random.randint(1, 4)
@@ -309,7 +312,7 @@ def main():
     stop = st.StopWatch()
     currGen = 0
     lastGen = 100
-    population = 100
+    population = 10000
     stop.start()
     Init_population(population, currGen)    
     Evaluation(population, currGen)
