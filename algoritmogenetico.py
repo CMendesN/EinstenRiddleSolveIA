@@ -1,5 +1,6 @@
 #eu alterei
 import random
+import os
 import StopWatch as st
 from functools import cmp_to_key
 #bota variavel global para numeração de individuos
@@ -170,31 +171,34 @@ def SelectParent(population, currGen):
         global cross_list
         for i in range(len(individuo)):
             fitness =int(((individuo[i].ponto/15)*10))
+            if fitness < 0:
+                fitness = fitness*-1
             fitness = pow(fitness, 2)
             for j in range(fitness):
                 cross_list.append(i)
         random.shuffle(cross_list)
-        #del(cross_list[population-int(population*0.2):len(cross_list)]) 
+        
         
 def CrossOver(population, currGen):             
-        if (len(cross_list)%2 != 0):
-               del cross_list[len(cross_list)-1]
+       #if (len(cross_list)%2 != 0):
+        #       del cross_list[len(cross_list)-1]
         
                 
-        for k in range(int(population/2)):
-            a = random.randint(0, len(cross_list)-2)
-            b = random.randint(0, len(cross_list)-2)
-            child_1 = House()
-            child_2 = House()          
-            midpoint = random.randint(1, 4)
-            midpoint = midpoint * 5                
-            child_1.matriz = individuo[cross_list[a]].matriz[0:midpoint] + individuo[cross_list[b]].matriz[midpoint:25]
-            child_2.matriz = individuo[cross_list[b]].matriz[0:midpoint] + individuo[cross_list[a]].matriz[midpoint:25]
-            individuo.insert(k, child_1)
-            individuo.insert(k+1,child_2)    
+    for k in range(int(population/2)):
+        print(len(cross_list))
+        a = random.randint(0, len(cross_list)-2)
+        b = random.randint(0, len(cross_list)-2)
+        child_1 = House()
+        child_2 = House()          
+        midpoint = random.randint(1, 4)
+        midpoint = midpoint * 5                
+        child_1.matriz = individuo[cross_list[a]].matriz[0:midpoint] + individuo[cross_list[b]].matriz[midpoint:25]
+        child_2.matriz = individuo[cross_list[b]].matriz[0:midpoint] + individuo[cross_list[a]].matriz[midpoint:25]
+        individuo.insert(k, child_1)
+        individuo.insert(k+1,child_2)    
         
-        cross_list.clear()
-        
+    cross_list.clear()
+'''
 def CrossOver2(population, currGen):             
         if (len(cross_list)%2 != 0):
                del cross_list[len(cross_list)-1]
@@ -210,7 +214,7 @@ def CrossOver2(population, currGen):
                 
         cross_list.clear()
 
-
+'''            
 def mutacao1(i):
     #g = random.randint(1,2)
     #for q in range(g):    
@@ -335,7 +339,7 @@ def main():
     #fenotipo(individuo[len(individuo)-1])
     stop.stop()
     print(stop.getElapsedTime(), "seconds" )
-
+    os.system("PAUSE")
 
 if __name__ == '__main__':
     main()
