@@ -197,8 +197,8 @@ def CrossOver(population, currGen):
         midpoint = midpoint * 5                
         child_1.matriz = individuo[cross_list[a]].matriz[0:midpoint] + individuo[cross_list[b]].matriz[midpoint:25]
         child_2.matriz = individuo[cross_list[b]].matriz[0:midpoint] + individuo[cross_list[a]].matriz[midpoint:25]
-        individuo.insert(k, child_1)
-        individuo.insert(k+1,child_2)    
+        individuo.insert(2*k, child_1)
+        individuo.insert(2*k+1,child_2)    
         
     cross_list.clear()
 '''
@@ -297,7 +297,7 @@ def fenotipo(individuo):
               ["Cachorros","Cavalos","Gatos","Passaros","Peixes"]]
     print("{:<16}{:<16}{:<16}{:<16}{:<16}".format("Casa 1","Casa 2","Casa 3","Casa 4","Casa 5"))
     for i in range(5):
-        print("{:<16}{:<16}{:<16}{:<16}{:<16}".format(matriz[i][individuo.matriz[0]],matriz[i][individuo.matriz[1]],matriz[i][individuo.matriz[2]],matriz[i][individuo.matriz[3]],matriz[i][individuo.matriz[4]]))
+        print("{:<16}{:<16}{:<16}{:<16}{:<16}".format(matriz[i][individuo.matriz[i*5 + 0]],matriz[i][individuo.matriz[i*5 + 1]],matriz[i][individuo.matriz[i*5 + 2]],matriz[i][individuo.matriz[i*5 + 3]],matriz[i][individuo.matriz[i*5 + 4]]))
     
     
 def Rng():
@@ -311,7 +311,7 @@ def sort():
 def main():
     stop = st.StopWatch()
     currGen = 0
-    lastGen = 100
+    lastGen = 1000
     population = 10000
     stop.start()
     Init_population(population, currGen)    
