@@ -3,11 +3,12 @@ import random
 import os
 import StopWatch as st
 from functools import cmp_to_key
-#bota variavel global para numeração de individuos
+#variavel global para numeração de individuos
 num = 0
 class House:
     def __init__(self):
-        #alterar essa para uma matriz onde as casas sao as colunas(j) e os dados da casa sao as linhas(i) assim da para usar o i * m + j
+        #uma matriz onde as casas sao as colunas(j) e os dados das casas sao as linhas(i)
+        # assim da para usar o i * m + j
         self.matriz = matriz = []
         self.ponto = 0       
         global num
@@ -266,7 +267,7 @@ def Mutation(population, currGen):
         
         for i in range(len(individuo)):
             mutar = random.random()
-            if(mutar < 0.22):                
+            if(mutar < 0.42):                
                 mutacao1(i)
                             
 
