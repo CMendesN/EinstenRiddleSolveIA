@@ -202,36 +202,20 @@ def CrossOver(population, currGen):
         individuo.insert(2*k+1,child_2)    
         
     cross_list.clear()
-'''
-def CrossOver2(population, currGen):             
-        if (len(cross_list)%2 != 0):
-               del cross_list[len(cross_list)-1]
-        
-                
-        for k in range(int(len(cross_list)/2)):
-            cross = random.random()
-            if( cross < 0.81):
-                individuo.append(House())
-                individuo.append(House())
-                individuo[len(individuo) - 2].matriz = individuo[cross_list[k]].matriz[0:10] + individuo[cross_list[len(cross_list)-1-k]].matriz[10:25]
-                individuo[len(individuo) - 1].matriz = individuo[cross_list[len(cross_list)-1-k]].matriz[0:10] + individuo[cross_list[k]].matriz[10:25]
-                
-        cross_list.clear()
-
-'''            
+         
 def mutacao1(i):
-    #g = random.randint(1,2)
-    #for q in range(g):    
-        selacaoDaCasa = Rng()
-        selacaoDoTipo = Rng()
-        posicaoDaTroca = selacaoDoTipo * 5 + selacaoDaCasa
-        trocaDeDado = Rng()
-        temp = individuo[i].matriz[posicaoDaTroca]
-        for k in range(5):        
-                if individuo[i].matriz[selacaoDoTipo * 5 + k] == trocaDeDado :
-                    individuo[i].matriz[posicaoDaTroca] = individuo[i].matriz[selacaoDoTipo * 5 + k]
-                    individuo[i].matriz[selacaoDoTipo * 5 + k] = temp
-                    break
+    selacaoDaCasa = Rng()
+    selacaoDoTipo = Rng()
+    posicaoDaTroca = selacaoDoTipo * 5 + selacaoDaCasa
+    trocaDeDado = Rng()
+    while trocaDeDado == individuo[i].matriz[posicaoDaTroca]:
+            trocaDeDado = Rng()
+    temp = individuo[i].matriz[posicaoDaTroca]
+    for k in range(5):        
+        if individuo[i].matriz[selacaoDoTipo * 5 + k] == trocaDeDado :
+            individuo[i].matriz[posicaoDaTroca] = individuo[i].matriz[selacaoDoTipo * 5 + k]
+            individuo[i].matriz[selacaoDoTipo * 5 + k] = temp
+            break
 
 def mutacao2(k):
     selacaoDoTipo = Rng()
@@ -243,15 +227,14 @@ def mutacao3(k):
     for j in range(5):
         moeda = random.randint(0,1)        
         if(moeda == 1):    
-            #valores =  Rng()#random.sample(const_list, len(const_list))
-            for i in range(5):
-                valores =  Rng()
-                individuo[k].matriz[j * 5 + i] = valores
+            valores = random.sample(const_list, len(const_list))
+            for i in range(5):                
+                individuo[k].matriz[j * 5 + i] = valores[i]
 
 def mutacao4(k):
     for i in range(5):
         for j in range(5):
-            moeda = 1
+            moeda = random.randint(0,1)        
             if(moeda == 1):
                 trocaDeDado = Rng()
                 while trocaDeDado == individuo[k].matriz[i*5+j]:
@@ -284,14 +267,7 @@ def Suvivors(population, currGen):
                     for coluna in range(5):        
                         individuo[i].matriz.append(valores[coluna])
         Evaluation(population, currGen)
-    '''
-    resposta=[0,1,4,3,2,3,1,2,0,4,0,3,4,1,2,2,0,3,4,1,2,1,3,4,0]
-    individuo.insert(len(individuo), House())
-    for k in range(25):
-        individuo[len(individuo)-1].matriz.append(resposta[k])
-        
-        pegar as melhores avaliacoes
-    '''
+
 def fenotipo(individuo):
     matriz = [["Amarela","Azul","Branca","Verde","Vermelha"],["Alemao","Dinamarques","Ingles","Noruegues","Sueco"],
               ["Agua","Cafe","Cerveja","Cha","Leita"],["Blends","Bluemaster","Dunhill","PallMall","Prince"],
@@ -312,8 +288,8 @@ def sort():
 def main():
     stop = st.StopWatch()
     currGen = 0
-    lastGen = 1000
-    population = 10000
+    lastGen = 10000000
+    population = 50
     stop.start()
     Init_population(population, currGen)    
     Evaluation(population, currGen)
@@ -326,11 +302,11 @@ def main():
         Suvivors(population, currGen)
         if(currGen%16 == 0):
             print("Melhor da geracao: ",individuo[0].numero, "Pontos: ", individuo[0].ponto)
+            
         if(individuo[0].ponto == 15):            
             break
     
-    #for i in range(int(len(individuo)*0.2)):
-    #    print(individuo[i].matriz,"\n", individuo[i].ponto)
+
     if(individuo[0].ponto == 15):
             print("sucesso")
     else:            
@@ -339,8 +315,7 @@ def main():
     print("Melhor individuo: ",individuo[0].numero,"\n",individuo[0].matriz,"\n", "Pontos: ", individuo[0].ponto)
     fenotipo(individuo[0])
 
-    #print("o ultimo individuo da populacao: ",individuo[len(individuo)-1].numero,"\n",individuo[len(individuo)-1].matriz,"\n", "Pontos: ", individuo[len(individuo)-1].ponto)
-    #fenotipo(individuo[len(individuo)-1])
+
     stop.stop()
     print(stop.getElapsedTime(), "seconds" )
     os.system("PAUSE")
