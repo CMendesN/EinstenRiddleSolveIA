@@ -1,8 +1,9 @@
-#eu alterei
 import random
 import os
 import StopWatch as st
 from functools import cmp_to_key
+
+
 #variavel global para numeração de individuos
 num = 0
 class House:
@@ -288,8 +289,8 @@ def sort():
 def main():
     stop = st.StopWatch()
     currGen = 0
-    lastGen = 10000000
-    population = 50
+    lastGen = 1000
+    population = 1000
     stop.start()
     Init_population(population, currGen)    
     Evaluation(population, currGen)
@@ -303,15 +304,12 @@ def main():
         if(currGen%16 == 0):
             print("Melhor da geracao: ",individuo[0].numero, "Pontos: ", individuo[0].ponto)
             
-        if(individuo[0].ponto == 15):            
+        if(individuo[0].ponto == 15): 
+            print("sucesso")           
             break
-    
+    else:
+        print("falha")
 
-    if(individuo[0].ponto == 15):
-            print("sucesso")
-    else:            
-            print("falha")
-    
     print("Melhor individuo: ",individuo[0].numero,"\n",individuo[0].matriz,"\n", "Pontos: ", individuo[0].ponto)
     fenotipo(individuo[0])
 
